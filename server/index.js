@@ -3,6 +3,9 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const User = require('./models/user')
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -16,6 +19,7 @@ if(process.env.NODE_ENV != 'production') {
 const app = express();
 
 const database = {
+    DATABASE_URL: process.env.DATABASE_URL
 };
 
 app.use(passport.initialize());
@@ -31,11 +35,35 @@ passport.use(
         // google id, and the access token
         // Job 2: Update this callback to either update or create the user
         // so it contains the correct access token
+
+        const searchQuery = {
+            googleId: profile.id
+        };
+
         const user = database[accessToken] = {
             googleId: profile.id,
             accessToken: accessToken
         };
-        return cb(null, user);
+
+        const updates = {
+            name: profile.displayName,
+            accessToken: accessToken,
+            googleId: profile.id
+        };
+
+        const options = {
+            upsert: true
+        };
+
+        User.findOneAndUpdate(searchQuery, updates, options, (err, user) => {
+            if (err) {
+                return cb(err);
+            }
+            else {
+                return cb(null, user);
+            }
+        })
+
     }
 ));
 
@@ -98,14 +126,22 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 let server;
 function runServer(port=3001) {
     return new Promise((resolve, reject) => {
+      mongoose.connect('mongodb://admin:khaldrogo@ds041851.mlab.com:41851/dothraki', err => {
+        if(err) {
+          return reject(err);
+        }
+        console.log('Successfully Connected to DB');
+
         server = app.listen(port, () => {
             resolve();
         }).on('error', reject);
+      });
     });
 }
 
 function closeServer() {
     return new Promise((resolve, reject) => {
+        mongoose.connect(DATABASE_URL, err => {})
         server.close(err => {
             if (err) {
                 return reject(err);
