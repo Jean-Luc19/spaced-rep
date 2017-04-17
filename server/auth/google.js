@@ -1,23 +1,20 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
-const {secret} = require('../index')
-
 const User = require('../models/user');
 
-let secret = {
-  CLIENT_ID: '128253236444-g3l2dagjtm70mvc6mfnm7ec1ncddstk6.apps.googleusercontent.com',
-  CLIENT_SECRET: 'lsUN_N5FfBOBinxMXTuuKEch'
-}
 
-const database = {
-    DATABASE_URL: process.env.DATABASE_URL
-};
+
+
+
+// const database = {
+//     DATABASE_URL: process.env.DATABASE_URL
+// };
 
 passport.use(
     new GoogleStrategy({
-        clientID:  secret.CLIENT_ID,
-        clientSecret: secret.CLIENT_SECRET,
+        clientID:  global.secret.CLIENT_ID,
+        clientSecret: global.secret.CLIENT_SECRET,
         callbackURL: `/api/auth/google/callback`
     },
     (accessToken, refreshToken, profile, cb) => {
