@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passportGoogle = require('../auth/google');
 const User = require('../models/user');
+const Question = require('../models/question')
 
 router.get('/api/auth/google',
     passportGoogle.authenticate('google', {scope: ['profile']}));
@@ -34,5 +35,27 @@ router.get('/api/questions',
     passportGoogle.authenticate('bearer', {session: false}),
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
+
+router.post('/api/question', (req, res) => {
+    const {wordDothraki, wordEnglish, difficulty} = req.body;
+
+    Question.create({
+        wordDothraki,
+        wordEnglish,
+        difficulty
+    })
+    .then(response => {
+        res.json(response)
+    })
+
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'server error'});
+    })
+});
+
+router.get('/api/questionset/:difficulty', (req, res) => {
+
+});
 
 module.exports = router;

@@ -7,9 +7,9 @@ const User = require('../models/user');
 
 
 
-// const database = {
-//     DATABASE_URL: process.env.DATABASE_URL
-// };
+const database = {
+    DATABASE_URL: global.secret.DATABASE_URL
+};
 
 passport.use(
     new GoogleStrategy({
