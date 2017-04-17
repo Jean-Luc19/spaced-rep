@@ -4,8 +4,11 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
 const User = require('./models/user')
+const Question = require('./models/question');
+const QuestionSet = require('./models/QuestionSet');
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -21,7 +24,7 @@ const app = express();
 const database = {
     DATABASE_URL: process.env.DATABASE_URL
 };
-
+app.use(bodyParser.json())
 app.use(passport.initialize());
 
 passport.use(
@@ -80,6 +83,44 @@ passport.use(
         }
     )
 );
+
+// api question endpoints
+app.post('/api/question', (req, res) => {
+    const {wordDothraki, wordEnglish, difficulty} = req.body;
+
+    Question.create({
+        wordDothraki,
+        wordEnglish,
+        difficulty
+    })
+    .then(response => {
+        const query = response.difficulty;
+        const update = {
+            questions: [response],
+            difficulty: response.difficulty
+        };
+        const options = { upsert: true };
+        console.log(response);
+        QuestionSet.create({
+            questions: [response],
+            difficulty: response.difficulty
+        })
+    })
+    .then((questionSet) => {
+        console.log(questionSet);
+        res.json(questionSet);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'server error'});
+    })
+});
+
+app.get('/api/questionset/:difficulty', (req, res) => {
+
+});
+
+/////////////////////////////////////
 
 app.get('/api/auth/google',
     passport.authenticate('google', {scope: ['profile']}));
