@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const User = require('../models/user');
+const Question = require('../models/question');
 
 
 
@@ -37,22 +38,37 @@ passport.use(
             googleId: profile.id
         };
 
-
         const options = {
             upsert: true
         };
-        User.find(searchQuery)
-            .then(user => {
-                if(!user) {
-                    User.create({})
-                }
-            })
-        User.findOneAndUpdate(searchQuery, updates, options, (err, user) => {
-            if (err) {
-                return cb(err);
+
+        User.findOne(searchQuery)
+        .then((user) => {
+            if (!user) {
+                return Question.find()
             }
-            else {
-                return cb(null, user);
+        })
+        .then((questions) => {
+            if (questions) {
+                updates['questionSet'] = questions;
+                User.create(updates, (err, user) => {
+                    console.log(user);
+                    if (err) {
+                        return cb(err);
+                    }
+                    else {
+                        return cb(null, user);
+                    }
+                })
+            } else {
+                User.findOneAndUpdate(searchQuery, updates, (err, user) => {
+                    if (err) {
+                        return cb(err);
+                    }
+                    else {
+                        return cb(null, user);
+                    }
+                })
             }
         })
     }

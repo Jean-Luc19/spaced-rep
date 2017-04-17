@@ -36,6 +36,8 @@ router.get('/api/questions',
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
+/////////////////////////////
+
 router.post('/api/question', (req, res) => {
     const {wordDothraki, wordEnglish, difficulty} = req.body;
 
