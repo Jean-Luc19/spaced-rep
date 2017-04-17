@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const passportGoogle = require('../auth/google');
+const passport = require('../auth/google');
 const User = require('../models/user');
 const Question = require('../models/question')
 
 router.get('/api/auth/google',
-    passportGoogle.authenticate('google', {scope: ['profile']}));
+    passport.authenticate('google', {scope: ['profile']}));
 
 router.get('/api/auth/google/callback',
-    passportGoogle.authenticate('google', {
+    passport.authenticate('google', {
         failureRedirect: '/',
         session: false
     }),
@@ -25,19 +25,18 @@ router.get('/api/auth/logout', (req, res) => {
 });
 
 router.get('/api/me',
-    passportGoogle.authenticate('bearer', {session: false}),
+    passport.authenticate('bearer', {session: false}),
     (req, res) => res.json({
         googleId: req.user.googleId
     })
 );
 
 router.get('/api/questions',
-    passportGoogle.authenticate('bearer', {session: false}),
+    passport.authenticate('bearer', {session: false}),
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
-/////////////////////////////
-
+//Currently Dont need this. post a question to the database.
 router.post('/api/question', (req, res) => {
     const {wordDothraki, wordEnglish, difficulty} = req.body;
 
@@ -56,6 +55,7 @@ router.post('/api/question', (req, res) => {
     })
 });
 
+// Grab a Question from the Database.
 router.get('/api/getQuestion', (req, res) => {
     const token = req.headers.authroization
     User.findOne({accessToken: token})

@@ -4,10 +4,6 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 const User = require('../models/user');
 const Question = require('../models/question');
 
-
-
-
-
 const database = {
     DATABASE_URL: global.secret.DATABASE_URL
 };
