@@ -22,14 +22,13 @@ passport.use(
         // google id, and the access token
         // Job 2: Update this callback to either update or create the user
         // so it contains the correct access token
-
-        const searchQuery = {
-            googleId: profile.id
-        };
-
         const user = database[accessToken] = {
             googleId: profile.id,
             accessToken: accessToken
+        };
+
+        const searchQuery = {
+            googleId: profile.id
         };
 
         const updates = {
@@ -38,10 +37,16 @@ passport.use(
             googleId: profile.id
         };
 
+
         const options = {
             upsert: true
         };
-
+        User.find(searchQuery)
+            .then(user => {
+                if(!user) {
+                    User.create({})
+                }
+            })
         User.findOneAndUpdate(searchQuery, updates, options, (err, user) => {
             if (err) {
                 return cb(err);
