@@ -56,8 +56,16 @@ router.post('/api/question', (req, res) => {
     })
 });
 
-router.get('/api/questionset/:difficulty', (req, res) => {
-
+router.get('/api/getQuestion', (req, res) => {
+    const token = req.headers.authroization
+    User.findOne({accessToken: token})
+    .exec()
+    .then((user) => {
+        // we organize questions based off of memory status;
+        // return a question.
+        // pick a number based off of memory status:
+        res.json(user.questionSet[0])
+    })
 });
 
 module.exports = router;
