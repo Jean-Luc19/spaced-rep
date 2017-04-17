@@ -45,7 +45,7 @@ passport.use(
 
         const user = database[accessToken] = {
             googleId: profile.id,
-            accessToken: accessToken
+            accessToken: accessToken,
         };
 
         const updates = {
@@ -66,7 +66,6 @@ passport.use(
                 return cb(null, user);
             }
         })
-
     }
 ));
 
@@ -101,8 +100,8 @@ app.post('/api/question', (req, res) => {
         };
         const options = { upsert: true };
         console.log(response);
-        QuestionSet.create({
-            questions: [response],
+        return QuestionSet.findOneAndUpdate({
+            questions: {$set: response}[response],
             difficulty: response.difficulty
         })
     })
