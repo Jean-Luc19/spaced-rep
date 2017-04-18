@@ -11,7 +11,12 @@ const QuestionReducer = (state=initialState, action) => {
             return {...state, currentQuestion: action.question.question}
         case actions.GET_QUESTION_FAILURE:
             console.error(action.err)
-            return state
+            return state;
+        case actions.SUBMIT_ANSWER_SUCCESS:
+            return state;
+        case actions.SUBMIT_ANSWER_FAILURE:
+            console.error(action.err)
+            return state;
         default:
             return state;
     }

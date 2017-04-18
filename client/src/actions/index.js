@@ -21,9 +21,41 @@ export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 
 export const SUBMIT_ANSWER_SUCCESS = 'SUBMIT_ANSWER_SUCCESS';
 
+export const submitAnswerSuccess = () => ({
+    type: SUBMIT_ANSWER_SUCCESS,
+});
+
 export const SUBMIT_ANSWER_FAILURE = 'SUBMIT_ANSWER_FAILURE';
 
+export const submitAnswerFailure = (err) => ({
+    type: SUBMIT_ANSWER_FAILURE,
+    err
+});
+
 export const LOGOUT = 'LOGOUT';
+
+
+export const submitAnswer = (answer, questionId) => dispatch => {
+    console.log(answer, questionId);
+    const accessToken = Cookies.get('accessToken');
+    return fetch('/api/answer', {
+        method: 'post',
+        headers: {
+            'Authorization': `bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            answer: answer,
+            questionId: questionId
+        })
+    })
+    .then(response => {
+        return dispatch(submitAnswerSuccess());
+    })
+    .catch(err => {
+        return dispatch(submitAnswerFailure(err));
+    })
+}
 
 export const getQuestion = () => dispatch => {
     const accessToken = Cookies.get('accessToken')

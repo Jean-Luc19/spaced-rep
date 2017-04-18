@@ -61,15 +61,16 @@ router.post('/api/question', (req, res) => {
 // takes question id, and whether answer was right or wrong
 // to update memory value.
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
-    const token = req.headers.authorization
-    User.findOne({accessToken: token})
-    .exec()
-    .then((user) => {
-        // we organize questions based off of memory status;
-        // return a question.
-        // pick a number based off of memory status:
-        res.json(user.questionSet[1])
-    })
+    console.log(req.body);
+    // const token = req.headers.authorization
+    // User.findOne({accessToken: token})
+    // .exec()
+    // .then((user) => {
+    //     // we organize questions based off of memory status;
+    //     // return a question.
+    //     // pick a number based off of memory status:
+    //     res.json(user.questionSet[1])
+    // })
 });
 
 // router.get('/api/getUsers', (req, res) => {
@@ -82,14 +83,10 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
 // });
 
 router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), (req, res) => {
-    console.log('///////////////////////////////////////////////////')
-    console.log(req.user.googleId);
-
     const id = req.user.googleId;
 
     User.findOne({googleId: id})
     .then((user) => {
-        console.log(user.questionSet[0]);
         // we organize questions based off of memory status;
         // return a question.
         // pick a number based off of memory status:
