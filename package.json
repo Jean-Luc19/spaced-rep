@@ -27,5 +27,9 @@
     "http-proxy-middleware": "^0.17.3",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3"
   }
 }

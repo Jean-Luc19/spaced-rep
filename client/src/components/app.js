@@ -41,7 +41,13 @@ class App extends React.Component {
 
     render() {
         if (!this.state.currentUser) {
-            return <LoginPage />;
+            return (
+                <div>
+                    <LoginPage />;
+                    {this.props.children}
+                </div>
+            )
+
         }
 
         return <QuestionPage />;
