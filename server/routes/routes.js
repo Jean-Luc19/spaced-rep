@@ -3,7 +3,9 @@ const router = express.Router();
 const {passport: passportGoogle} = require('../auth/google');
 const User = require('../models/user');
 const Question = require('../models/question')
-const bearer = require('../auth/bearer')
+const bearer = require('../auth/bearer');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 router.get('/api/auth/google',
     passportGoogle.authenticate('google', {scope: ['profile']}));
@@ -67,15 +69,18 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
     })
 
 });
-router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), (req, res) => {
+router.get('/api/getQuestion', (req, res) => {
     const token = req.headers.authorization
     User.findOne({accessToken: token})
-    .exec()
     .then((user) => {
+        console.log(user)
         // we organize questions based off of memory status;
         // return a question.
         // pick a number based off of memory status:
-        res.json(user.questionSet[Math.floor(Math.Random() * 10)])
+        res.json(user.questionSet[0])
+    })
+    .catch(err => {
+        res.status(500).json(err)
     })
 });
 

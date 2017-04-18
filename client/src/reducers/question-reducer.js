@@ -1,7 +1,16 @@
-import actions from '../actions';
+import * as actions from '../actions';
 
-const QuestionReducer = (state={}, action) => {
+const initialState = {
+    currentQuestion: {}
+}
+
+const QuestionReducer = (state=initialState, action) => {
     switch (action.type) {
+        case actions.GET_QUESTION_SUCCESS:
+            return {...state, currentQuestion: action.question}
+        case actions.GET_QUESTION_FAILURE:
+            console.error(action.err)
+            return state
         default:
             return state;
     }

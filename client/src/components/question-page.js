@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-export default class QuestionPage extends React.Component {
+export class QuestionPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,6 +12,8 @@ export default class QuestionPage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.dispatch(actions.getQuestion())
+        console.log(this.props)
         const accessToken = Cookies.get('accessToken');
         fetch('/api/questions', {
                 headers: {
@@ -33,9 +37,17 @@ export default class QuestionPage extends React.Component {
         );
 
         return (
-            <ul className="question-list">
-                {questions}
-            </ul>
+            <div>
+                <ul className="question-list">
+                    {questions}
+                </ul>
+                <h1>{this.props.question}</h1>
+            </div>
+
         );
     }
 }
+const mapstateToProps = (state, props) => ({
+    question: state.currentQuestion
+})
+export default connect(mapstateToProps)(QuestionPage);
