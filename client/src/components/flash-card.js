@@ -5,7 +5,7 @@ export default function FlashCard(props) {
     return (
         <div className="flash-card">
             <h1>Dothraki Word: {currentQuestion.wordDothraki}</h1>
-            <h3>English: Word: {currentQuestion.wordEnglish}</h3>
+            <h3>English Word: {currentQuestion.wordEnglish}</h3>
             <div className="user-status">
                 <p>Difficulty: {currentQuestion.difficulty}</p>
             </div>

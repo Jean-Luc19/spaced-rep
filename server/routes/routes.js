@@ -58,6 +58,8 @@ router.post('/api/question', (req, res) => {
     })
 });
 
+// takes question id, and whether answer was right or wrong
+// to update memory value.
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
     const token = req.headers.authorization
     User.findOne({accessToken: token})
