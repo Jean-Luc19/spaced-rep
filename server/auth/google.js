@@ -58,7 +58,6 @@ passport.use(
                         return cb(err);
                     }
                     else {
-                        console.log(updates)
                         return cb(null, user);
                     }
                 })

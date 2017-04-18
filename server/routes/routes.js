@@ -28,7 +28,7 @@ router.get('/api/auth/logout', (req, res) => {
 });
 
 router.get('/api/me',
-    bearer.authenticate('bearer', {session: false}),
+    passportGoogle.authenticate('bearer', {session: false}),
     (req, res) => res.json({
         googleId: req.user.googleId
     })
