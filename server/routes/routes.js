@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../auth/google');
+const {passport: passportGoogle} = require('../auth/google');
 const User = require('../models/user');
 const Question = require('../models/question')
+const bearer = require('../auth/bearer')
 
 router.get('/api/auth/google',
-    passport.authenticate('google', {scope: ['profile']}));
+    passportGoogle.authenticate('google', {scope: ['profile']}));
 
 router.get('/api/auth/google/callback',
-    passport.authenticate('google', {
+    passportGoogle.authenticate('google', {
         failureRedirect: '/',
         session: false
     }),
@@ -25,14 +26,14 @@ router.get('/api/auth/logout', (req, res) => {
 });
 
 router.get('/api/me',
-    passport.authenticate('bearer', {session: false}),
+    bearer.authenticate('bearer', {session: false}),
     (req, res) => res.json({
         googleId: req.user.googleId
     })
 );
 
 router.get('/api/questions',
-    passport.authenticate('bearer', {session: false}),
+    bearer.authenticate('bearer', {session: false}),
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
@@ -54,10 +55,20 @@ router.post('/api/question', (req, res) => {
         res.status(500).json({error: 'server error'});
     })
 });
+router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
+    const token = req.headers.authorization
+    User.findOne({accessToken: token})
+    .exec()
+    .then((user) => {
+        // we organize questions based off of memory status;
+        // return a question.
+        // pick a number based off of memory status:
+        res.json(user.questionSet[1])
+    })
 
-// Grab a Question from the Database.
-router.get('/api/getQuestion', (req, res) => {
-    const token = req.headers.authroization
+});
+router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), (req, res) => {
+    const token = req.headers.authorization
     User.findOne({accessToken: token})
     .exec()
     .then((user) => {

@@ -15,10 +15,7 @@ passport.use(
         callbackURL: `/api/auth/google/callback`
     },
     (accessToken, refreshToken, profile, cb) => {
-        // Job 1: Set up Mongo/Mongoose, create a User model which store the
-        // google id, and the access token
-        // Job 2: Update this callback to either update or create the user
-        // so it contains the correct access token
+
         const user = database[accessToken] = {
             googleId: profile.id,
             accessToken: accessToken
@@ -48,7 +45,6 @@ passport.use(
             if (questions) {
                 updates['questionSet'] = questions;
                 User.create(updates, (err, user) => {
-                    console.log(user);
                     if (err) {
                         return cb(err);
                     }
@@ -70,18 +66,19 @@ passport.use(
     }
 ));
 
-passport.use(
-    new BearerStrategy(
-        (token, done) => {
-            // Job 3: Update this callback to try to find a user with a
-            // matching access token.  If they exist, let em in, if not,
-            // don't.
-            if (!(token in database)) {
-                return done(null, false);
-            }
-            return done(null, database[token]);
-        }
-    )
-);
+// passport.use(
+//     new BearerStrategy(
+//         (token, done) => {
+//             console.log('bearer token' + token, database)
+//             // Job 3: Update this callback to try to find a user with a
+//             // matching access token.  If they exist, let em in, if not,
+//             // don't.
+//             if (!(token in database)) {
+//                 return done(null, false);
+//             }
+//             return done(null, database[token]);
+//         }
+//     )
+// );
 
-module.exports = passport;
+module.exports = {passport, database};
