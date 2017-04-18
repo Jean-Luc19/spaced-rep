@@ -1,11 +1,9 @@
 const path = require('path');
 const express = require('express');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
+mongoose.Promise = global.Promise;
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -16,8 +14,11 @@ let secret = {
 if(process.env.NODE_ENV != 'production') {
   secret = require('./secret');
 }
+
 global.secret = secret;
+
 const routes = require('./routes/routes');
+
 const User = require('./models/user')
 
 const app = express();
@@ -26,6 +27,7 @@ const database = {
     DATABASE_URL: process.env.DATABASE_URL
 };
 app.use(bodyParser.json())
+
 app.use(passport.initialize());
 
 app.use('/', routes);
@@ -43,7 +45,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 let server;
 function runServer(port=3001) {
     return new Promise((resolve, reject) => {
-      mongoose.connect('mongodb://admin:khaldrogo@ds041851.mlab.com:41851/dothraki', err => {
+      mongoose.connect(secret.DATABASE_URL, err => {
         if(err) {
           return reject(err);
         }
