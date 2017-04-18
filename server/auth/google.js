@@ -53,12 +53,12 @@ passport.use(
                     }
                 })
             } else {
-                User.findOneAndUpdate(searchQuery, updates, (err, user) => {
+                User.findOneAndUpdate(searchQuery, {$set: updates}, (err, user) => {
                     if (err) {
                         return cb(err);
                     }
                     else {
-                        console.log(user)
+                        console.log(updates)
                         return cb(null, user);
                     }
                 })

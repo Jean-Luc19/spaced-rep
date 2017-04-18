@@ -73,7 +73,6 @@ router.get('/api/getQuestion', (req, res) => {
     const token = req.headers.authorization
     User.findOne({accessToken: token})
     .then((user) => {
-        console.log(user)
         // we organize questions based off of memory status;
         // return a question.
         // pick a number based off of memory status:
