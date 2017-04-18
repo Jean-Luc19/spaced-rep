@@ -75,7 +75,7 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
         // we organize questions based off of memory status;
         // return a question.
         // pick a number based off of memory status:
-        res.json(user.questionSet[0])
+        res.json(user.questionSet[Math.floor(Math.Random() * 10)])
     })
 });
 
