@@ -2,6 +2,7 @@ import React from 'react';
 import * as Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import FlashCard from './flash-card';
 
 export class QuestionPage extends React.Component {
     constructor(props) {
@@ -32,23 +33,19 @@ export class QuestionPage extends React.Component {
     }
 
     render() {
-        const questions = this.state.questions.map((question, index) =>
-            <li key={index}>{question}</li>
-        );
-        console.log(this.props.currentQuestion);
+
+        const currentQuestion = this.props.currentQuestion
 
         return (
-            <div>
-                <ul className="question-list">
-                    {questions}
-                </ul>
-                <h1></h1>
+            <div className="Question-page">
+                <FlashCard currentQuestion={currentQuestion}/>
             </div>
-
         );
     }
 }
+
 const mapstateToProps = (state, props) => ({
     currentQuestion: state.currentQuestion
 })
+
 export default connect(mapstateToProps)(QuestionPage);
