@@ -9,10 +9,8 @@ mongoose.promise = global.promise;
 passport.use(
     new BearerStrategy(
         (token, done) => {
-            console.log(`Token: ${token}`)
             User.findOne({accessToken: token})
                 .then(user => {
-                    console.log(user)
                     return done(null, database[token]);
                 })
                 .catch(err => {

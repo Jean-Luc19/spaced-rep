@@ -32,28 +32,30 @@ passport.use(
         };
 
         const options = {
-            upsert: true
+            upsert: true,
+            new: true
         };
 
         User.findOne(searchQuery)
         .then((user) => {
             if (!user) {
                 return Question.find()
-            }
-        })
-        .then((questions) => {
-            if (questions) {
-                updates['questionSet'] = questions;
-                User.create(updates, (err, user) => {
+            } else {
+                User.findOneAndUpdate(searchQuery, {$set: updates}, options, (err, user) => {
                     if (err) {
+                        console.log(err);
                         return cb(err);
                     }
                     else {
                         return cb(null, user);
                     }
                 })
-            } else {
-                User.findOneAndUpdate(searchQuery, {$set: updates}, (err, user) => {
+            }
+        })
+        .then((questions) => {
+            if (questions) {
+                updates['questionSet'] = questions;
+                User.create(updates, (err, user) => {
                     if (err) {
                         return cb(err);
                     }

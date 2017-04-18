@@ -35,19 +35,20 @@ export class QuestionPage extends React.Component {
         const questions = this.state.questions.map((question, index) =>
             <li key={index}>{question}</li>
         );
+        console.log(this.props.currentQuestion);
 
         return (
             <div>
                 <ul className="question-list">
                     {questions}
                 </ul>
-                <h1>{this.props.question}</h1>
+                <h1></h1>
             </div>
 
         );
     }
 }
 const mapstateToProps = (state, props) => ({
-    question: state.currentQuestion
+    currentQuestion: state.currentQuestion
 })
 export default connect(mapstateToProps)(QuestionPage);

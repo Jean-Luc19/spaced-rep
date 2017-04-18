@@ -5,4 +5,4 @@ const rootReducer = combineReducers({
   QuestionReducer,
 });
 
-export default rootReducer;
+export default QuestionReducer;

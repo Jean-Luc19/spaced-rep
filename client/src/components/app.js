@@ -32,9 +32,11 @@ class App extends React.Component {
                 }
                 return res.json();
             }).then(currentUser =>
+                {
                 this.setState({
                     currentUser
                 })
+            }
             );
         }
     }

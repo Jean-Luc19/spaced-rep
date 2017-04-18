@@ -27,15 +27,15 @@ export const LOGOUT = 'LOGOUT';
 
 export const getQuestion = () => dispatch => {
     const accessToken = Cookies.get('accessToken')
-    console.log(accessToken)
     return fetch('/api/getQuestion', {
-        method: 'get',
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
     })
+    .then(response => {
+        return response.json();
+    })
     .then(question => {
-        console.log("yo")
         return dispatch(getQuestionSuccess(question))
     })
     .catch(err => {

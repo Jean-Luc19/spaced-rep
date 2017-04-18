@@ -57,6 +57,7 @@ router.post('/api/question', (req, res) => {
         res.status(500).json({error: 'server error'});
     })
 });
+
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
     const token = req.headers.authorization
     User.findOne({accessToken: token})
@@ -67,16 +68,30 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
         // pick a number based off of memory status:
         res.json(user.questionSet[1])
     })
-
 });
-router.get('/api/getQuestion', (req, res) => {
-    const token = req.headers.authorization
-    User.findOne({accessToken: token})
+
+// router.get('/api/getUsers', (req, res) => {
+//     return User.findOne()
+//     .exec()
+//     .then(user => {
+//         res.json(user)
+//     })
+//     .catch(res.status(500).json({error: 'server error'}));
+// });
+
+router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), (req, res) => {
+    console.log('///////////////////////////////////////////////////')
+    console.log(req.user.googleId);
+
+    const id = req.user.googleId;
+
+    User.findOne({googleId: id})
     .then((user) => {
+        console.log(user.questionSet[0]);
         // we organize questions based off of memory status;
         // return a question.
         // pick a number based off of memory status:
-        res.json(user.questionSet[0])
+        res.json({question: user.questionSet[0]})
     })
     .catch(err => {
         res.status(500).json(err)
