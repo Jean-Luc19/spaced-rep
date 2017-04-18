@@ -43,7 +43,7 @@ class App extends React.Component {
         if (!this.state.currentUser) {
             return (
                 <div>
-                    <LoginPage />;
+                    <LoginPage />
                     {this.props.children}
                 </div>
             )
