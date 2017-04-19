@@ -36,9 +36,6 @@ export class QuestionCard extends React.Component {
         const currentQuestion = this.props.currentQuestion
         const correct = this.props.correct;
         const userAnswer = this.props.userAnswer;
-        console.log(currentQuestion);
-        console.log(userAnswer);
-        console.log(correct);
 
         if (correct) {
             return (

@@ -71,7 +71,6 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
     User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {returnNewDocument: true})
     .exec()
     .then(user => {
-        console.log(user);
         res.sendStatus(204)
     })
     .catch(err => {

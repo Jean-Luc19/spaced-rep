@@ -36,8 +36,6 @@ export const submitAnswerFailure = (err) => ({
     err
 });
 
-export const LOGOUT = 'LOGOUT';
-
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 
 export const NEXT_QUESTION_SUCCESS = 'NEXT_QUESTION_SUCCESS';

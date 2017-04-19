@@ -3,6 +3,7 @@ import * as Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import QuestionCard from './question-card';
+import Logout from './logout';
 
 export class QuestionPage extends React.Component {
     constructor(props) {
@@ -34,6 +35,7 @@ export class QuestionPage extends React.Component {
     render() {
         return (
             <div className="Question-page">
+                <Logout />
                 <QuestionCard />
             </div>
         );

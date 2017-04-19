@@ -11,9 +11,9 @@ class RightCard extends React.Component {
     render() {
         const currentQuestion = this.props.englishAnswer
         const userAnswer = this.props.userAnswer;
-        
+
         return (
-            <div className="result-card">
+            <div className="result-card-right">
                 <h1>You Got It Right!</h1>
                 <h2>The Answer Was: {currentQuestion.toLowerCase()}</h2>
                 <h3>Your Answer Was: {this.props.userAnswer.toLowerCase()}</h3>
