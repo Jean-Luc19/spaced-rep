@@ -11,22 +11,22 @@ export class QuestionCard extends React.Component {
     }
 
     onChangeValue(e) {
-        console.log(this.state.value);
         this.setState({value: e.target.value})
     }
 
     onSubmitAnswer(e) {
         let answer = this.state.value;
+        let correctAnswer = this.props.currentQuestion.wordEnglish
+        console.log(correctAnswer)
         const questionId = this.props.currentQuestion._id;
         e.preventDefault();
-        if (answer === this.props.currentQuestion.EnglishWord) {
-            let answer = true;
+        if (answer === correctAnswer) {
+             answer = true;
         } else {
-            let answer = false;
+             answer = false;
         }
         this.props.dispatch(actions.submitAnswer(answer, questionId));
-        // answer, and questionId
-        // dispatch here
+
     }
 
     render() {

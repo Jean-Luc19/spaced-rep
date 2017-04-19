@@ -61,16 +61,24 @@ router.post('/api/question', (req, res) => {
 // takes question id, and whether answer was right or wrong
 // to update memory value.
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
-    console.log(req.body);
-    // const token = req.headers.authorization
-    // User.findOne({accessToken: token})
-    // .exec()
-    // .then((user) => {
-    //     // we organize questions based off of memory status;
-    //     // return a question.
-    //     // pick a number based off of memory status:
-    //     res.json(user.questionSet[1])
-    // })
+    let questionId = req.body.questionId
+    let increment = req.body.answer ? 1 : -1;
+
+    const searchQuery = {
+        googleId:  req.user.googleId,
+        "questionSet._id": mongoose.Types.ObjectId(questionId)
+    }
+    console.log(searchQuery)
+    User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {returnNewDocument: true})
+    .exec()
+    .then(user => {
+        console.log(user)
+        res.sendStatus(204)
+    })
+    .catch(err => {
+        res.status(500).send(err)
+    })
+
 });
 
 // router.get('/api/getUsers', (req, res) => {

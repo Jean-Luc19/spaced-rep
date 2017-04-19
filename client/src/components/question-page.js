@@ -14,7 +14,6 @@ export class QuestionPage extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(actions.getQuestion())
-        console.log(this.props)
         const accessToken = Cookies.get('accessToken');
         fetch('/api/questions', {
                 headers: {

@@ -11,7 +11,7 @@ passport.use(
         (token, done) => {
             User.findOne({accessToken: token})
                 .then(user => {
-                    return done(null, database[token]);
+                    return done(null, user);
                 })
                 .catch(err => {
                     return done(null, false);
