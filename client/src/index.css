@@ -5,6 +5,7 @@ body {
   font-family: sans-serif;
 }
 
+
 /* Google */
 
 .loginBtn {
@@ -64,3 +65,30 @@ body {
  *
  * https://github.com/lipis/bootstrap-social
  */
+
+.fly-in-text {
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.fly-in-text li {
+    display: inline-block;
+    margin-right: 15px;
+    font-family: Open Sans, Arial;
+    font-weight: 300;
+    font-size: 2em;
+    color: grey;
+    opacity: 1;
+    transition: all 2.5s ease;
+}
+.fly-in-text li:last-child {
+    margin-right:0;
+}
+
+.fly-in-text.hidden li {
+    opacity: 0;
+    transform: translateX(-200px) translateY(-200px)
+}
