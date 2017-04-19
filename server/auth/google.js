@@ -68,19 +68,4 @@ passport.use(
     }
 ));
 
-// passport.use(
-//     new BearerStrategy(
-//         (token, done) => {
-//             console.log('bearer token' + token, database)
-//             // Job 3: Update this callback to try to find a user with a
-//             // matching access token.  If they exist, let em in, if not,
-//             // don't.
-//             if (!(token in database)) {
-//                 return done(null, false);
-//             }
-//             return done(null, database[token]);
-//         }
-//     )
-// );
-
 module.exports = {passport, database};

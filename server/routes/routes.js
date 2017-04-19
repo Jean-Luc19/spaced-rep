@@ -39,7 +39,7 @@ router.get('/api/questions',
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
-//Currently Dont need this. post a question to the database.
+
 router.post('/api/question', (req, res) => {
     const {wordDothraki, wordEnglish, difficulty} = req.body;
 
@@ -79,15 +79,6 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
 
 });
 
-// router.get('/api/getUsers', (req, res) => {
-//     return User.findOne()
-//     .exec()
-//     .then(user => {
-//         res.json(user)
-//     })
-//     .catch(res.status(500).json({error: 'server error'}));
-// });
-
 router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), (req, res) => {
     const id = req.user.googleId;
 
@@ -97,7 +88,6 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
         questions.sort((a,b) => {
             return a.memory - b.memory
         })
-        console.log(questions[0], questions[9])
         res.json({question: questions[0]})
     })
     .catch(err => {
