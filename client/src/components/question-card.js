@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
+import QuestionPageTitle from './question-page-title'
 
 export class QuestionCard extends React.Component {
     constructor(props) {
@@ -32,9 +33,10 @@ export class QuestionCard extends React.Component {
 
     render() {
         const currentQuestion = this.props.currentQuestion
+        const title = currentQuestion.wordDothraki ? <QuestionPageTitle title={currentQuestion.wordDothraki}/> : ''
         return (
             <div className="flash-card">
-                <h1>Dothraki Word: {currentQuestion.wordDothraki}</h1>
+                {title}
                 <h3>English Word: {currentQuestion.wordEnglish}</h3>
                 <div className="user-status">
                     <p>Difficulty: {currentQuestion.difficulty}</p>
