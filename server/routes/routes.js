@@ -68,11 +68,9 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
         googleId:  req.user.googleId,
         "questionSet._id": mongoose.Types.ObjectId(questionId)
     }
-    console.log(searchQuery)
     User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {returnNewDocument: true})
     .exec()
     .then(user => {
-        console.log(user)
         res.sendStatus(204)
     })
     .catch(err => {
@@ -95,10 +93,12 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
 
     User.findOne({googleId: id})
     .then((user) => {
-        // we organize questions based off of memory status;
-        // return a question.
-        // pick a number based off of memory status:
-        res.json({question: user.questionSet[0]})
+        const questions = user.questionSet
+        questions.sort((a,b) => {
+            return a.memory - b.memory
+        })
+        console.log(questions[0], questions[9])
+        res.json({question: questions[0]})
     })
     .catch(err => {
         res.status(500).json(err)
