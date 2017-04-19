@@ -1,7 +1,9 @@
 import * as actions from '../actions';
 
 const initialState = {
-    currentQuestion: {}
+    currentQuestion: {},
+    userAnswer: null,
+    result: null,
 }
 
 const QuestionReducer = (state=initialState, action) => {
@@ -12,7 +14,8 @@ const QuestionReducer = (state=initialState, action) => {
             console.error(action.err)
             return state;
         case actions.SUBMIT_ANSWER_SUCCESS:
-            return state;
+            console.log(action);
+            return {...state, result: action.payload}
         case actions.SUBMIT_ANSWER_FAILURE:
             console.error(action.err)
             return state;

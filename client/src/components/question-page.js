@@ -2,7 +2,7 @@ import React from 'react';
 import * as Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import QuestionCard from './flash-card';
+import QuestionCard from './question-card';
 
 export class QuestionPage extends React.Component {
     constructor(props) {

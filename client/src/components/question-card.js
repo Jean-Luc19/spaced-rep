@@ -15,18 +15,19 @@ export class QuestionCard extends React.Component {
     }
 
     onSubmitAnswer(e) {
-        let answer = this.state.value;
-        let correctAnswer = this.props.currentQuestion.wordEnglish
+        let userAnswer = this.state.value.toLowerCase();
+        let correctAnswer = this.props.currentQuestion.wordEnglish.toLowerCase();
         console.log(correctAnswer)
         const questionId = this.props.currentQuestion._id;
         e.preventDefault();
-        if (answer === correctAnswer) {
-             answer = true;
+        let correct;
+        if (userAnswer === correctAnswer) {
+             correct = true;
         } else {
-             answer = false;
+             correct = false;
         }
-        this.props.dispatch(actions.submitAnswer(answer, questionId));
-
+        this.props.dispatch(actions.submitAnswer(correct, questionId, userAnswer));
+        this.props.history.push('/api/question/result');
     }
 
     render() {

@@ -21,8 +21,12 @@ export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 
 export const SUBMIT_ANSWER_SUCCESS = 'SUBMIT_ANSWER_SUCCESS';
 
-export const submitAnswerSuccess = () => ({
+export const submitAnswerSuccess = (correct, userAnswer) => ({
     type: SUBMIT_ANSWER_SUCCESS,
+    payload: {
+        correct,
+        userAnswer
+    }
 });
 
 export const SUBMIT_ANSWER_FAILURE = 'SUBMIT_ANSWER_FAILURE';
@@ -35,8 +39,8 @@ export const submitAnswerFailure = (err) => ({
 export const LOGOUT = 'LOGOUT';
 
 
-export const submitAnswer = (answer, questionId) => dispatch => {
-    console.log(answer, questionId);
+export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
+    console.log(correct, questionId, userAnswer);
     const accessToken = Cookies.get('accessToken');
     return fetch('/api/answer', {
         method: 'post',
@@ -45,12 +49,12 @@ export const submitAnswer = (answer, questionId) => dispatch => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            answer: answer,
+            answer: correct,
             questionId: questionId
         })
     })
     .then(response => {
-        return dispatch(submitAnswerSuccess());
+        return dispatch(submitAnswerSuccess(correct, userAnswer));
     })
     .catch(err => {
         return dispatch(submitAnswerFailure(err));
