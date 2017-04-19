@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
+import {RightCard} from './question-correct-true';
+import {WrongCard} from './question-correct-false';
 
 export class QuestionCard extends React.Component {
     constructor(props) {
@@ -27,33 +29,47 @@ export class QuestionCard extends React.Component {
              correct = false;
         }
         this.props.dispatch(actions.submitAnswer(correct, questionId, userAnswer));
-        this.props.history.push('/api/question/result');
     }
 
     render() {
         const currentQuestion = this.props.currentQuestion
-        return (
-            <div className="flash-card">
-                <h1>Dothraki Word: {currentQuestion.wordDothraki}</h1>
-                <h3>English Word: {currentQuestion.wordEnglish}</h3>
-                <div className="user-status">
-                    <p>Difficulty: {currentQuestion.difficulty}</p>
-                </div>
-                <form className="flash-card-answer"
-                    onSubmit={(e) => this.onSubmitAnswer(e)}>
-                    <label>Input Your Answer:
-                    </label>
-                    <input type="text" onChange={(e) => this.onChangeValue(e)} value={this.state.value} placeholder="English Equivalent"></input>
-                    <button type="submit">Submit Answer</button>
-                </form>
-            </div>
-        );
-    }
+        const correct = this.props.correct;
+        const userAnswer = this.props.userAnswer;
+        console.log(currentQuestion);
 
+        if (correct) {
+            return (
+                <RightCard englishAnswer={currentQuestion.wordEnglish} userAnswer={userAnswer}/>
+            )
+        } else if (!correct && !userAnswer) {
+            return (
+                <div className="flash-card">
+                    <h1>Dothraki Word: {currentQuestion.wordDothraki}</h1>
+                    <h3>English Word: {currentQuestion.wordEnglish}</h3>
+                    <div className="user-status">
+                        <p>Difficulty: {currentQuestion.difficulty}</p>
+                    </div>
+                    <form className="flash-card-answer"
+                        onSubmit={(e) => this.onSubmitAnswer(e)}>
+                        <label>Input Your Answer:
+                        </label>
+                        <input type="text" onChange={(e) => this.onChangeValue(e)} value={this.state.value} placeholder="English Equivalent"></input>
+                        <button type="submit">Submit Answer</button>
+                    </form>
+                </div>
+            )
+        } else if (correct === false) {
+            return (
+                <WrongCard englishAnswer={currentQuestion.wordEnglish} userAnswer={userAnswer}/>
+            )
+        }
+    };
 }
 
 const mapStateToProps = (state, props) => ({
     currentQuestion: state.currentQuestion,
+    correct: state.correct,
+    userAnswer: state.userAnswer
 })
 
 export default connect(mapStateToProps)(QuestionCard);
