@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
-import {RightCard} from './question-correct-true';
-import {WrongCard} from './question-correct-false';
+import RightCard from './question-correct-true';
+import WrongCard from './question-correct-false';
 
 export class QuestionCard extends React.Component {
     constructor(props) {
@@ -29,6 +29,7 @@ export class QuestionCard extends React.Component {
              correct = false;
         }
         this.props.dispatch(actions.submitAnswer(correct, questionId, userAnswer));
+        this.setState({value: ""});
     }
 
     render() {
@@ -36,6 +37,8 @@ export class QuestionCard extends React.Component {
         const correct = this.props.correct;
         const userAnswer = this.props.userAnswer;
         console.log(currentQuestion);
+        console.log(userAnswer);
+        console.log(correct);
 
         if (correct) {
             return (

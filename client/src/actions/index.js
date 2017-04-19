@@ -38,6 +38,20 @@ export const submitAnswerFailure = (err) => ({
 
 export const LOGOUT = 'LOGOUT';
 
+export const NEXT_QUESTION = 'NEXT_QUESTION';
+
+export const NEXT_QUESTION_SUCCESS = 'NEXT_QUESTION_SUCCESS';
+
+export const nextQuestionSuccess = () => ({
+    type: NEXT_QUESTION_SUCCESS
+})
+
+export const nextQuestion = () => dispatch => {
+    return dispatch(getQuestion())
+    .then(() => {
+        return dispatch(nextQuestionSuccess())
+    })
+}
 
 export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
     console.log(correct, questionId, userAnswer);

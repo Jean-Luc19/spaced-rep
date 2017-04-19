@@ -2,7 +2,6 @@ import * as actions from '../actions';
 
 const initialState = {
     currentQuestion: {},
-    previousQuestion: {},
     userAnswer: null,
     correct: null,
 }
@@ -20,6 +19,8 @@ const QuestionReducer = (state=initialState, action) => {
         case actions.SUBMIT_ANSWER_FAILURE:
             console.error(action.err)
             return state;
+        case actions.NEXT_QUESTION_SUCCESS:
+            return {...state, correct: null, userAnswer: null}
         default:
             return state;
     }
