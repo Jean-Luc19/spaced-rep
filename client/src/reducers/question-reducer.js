@@ -5,6 +5,8 @@ const initialState = {
     userAnswer: null,
     correct: null,
     languageOrder: true,
+    totalCorrect: 0,
+    totalIncorrect: 0
 }
 
 const QuestionReducer = (state=initialState, action) => {
@@ -16,7 +18,7 @@ const QuestionReducer = (state=initialState, action) => {
             return state;
         case actions.SUBMIT_ANSWER_SUCCESS:
             console.log(action);
-            return {...state, correct: action.payload.correct, userAnswer: action.payload.userAnswer}
+            return {...state, correct: action.payload.correct, userAnswer: action.payload.userAnswer, totalCorrect: action.payload.scores[0], totalIncorrect: action.payload.scores[1]}
         case actions.SUBMIT_ANSWER_FAILURE:
             console.error(action.err)
             return state;

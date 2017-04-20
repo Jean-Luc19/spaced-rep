@@ -24,11 +24,12 @@ export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 
 export const SUBMIT_ANSWER_SUCCESS = 'SUBMIT_ANSWER_SUCCESS';
 
-export const submitAnswerSuccess = (correct, userAnswer) => ({
+export const submitAnswerSuccess = (correct, userAnswer, scores) => ({
     type: SUBMIT_ANSWER_SUCCESS,
     payload: {
         correct,
-        userAnswer
+        userAnswer,
+        scores
     }
 });
 
@@ -65,7 +66,7 @@ export const reverseLanguageOrder = () => ({
 
 //----------------------Async Actions----------------------//
 
-export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
+export const submitAnswer = (correct, questionId, userAnswer, dothWord) => dispatch => {
     console.log(correct, questionId, userAnswer);
     const accessToken = Cookies.get('accessToken');
     return fetch('/api/answer', {
@@ -76,11 +77,15 @@ export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
         },
         body: JSON.stringify({
             answer: correct,
-            questionId: questionId
+            questionId: questionId,
+            dothWord: dothWord
         })
     })
     .then(response => {
-        return dispatch(submitAnswerSuccess(correct, userAnswer));
+        return response.json()
+    })
+    .then(response => {
+        return dispatch(submitAnswerSuccess(correct, userAnswer, response.total));
     })
     .catch(err => {
         return dispatch(submitAnswerFailure(err));

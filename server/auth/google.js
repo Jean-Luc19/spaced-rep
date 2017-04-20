@@ -54,6 +54,13 @@ passport.use(
         })
         .then((questions) => {
             if (questions) {
+                const scores = questions.map(q => {
+                    let arr = q.wordDothraki
+                    return {[arr]: [0,0]}
+
+                })
+
+                updates['scores'] = scores;
                 updates['questionSet'] = questions;
                 User.create(updates, (err, user) => {
                     if (err) {
