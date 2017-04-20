@@ -79,17 +79,38 @@ router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req,
 
 
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
-    let questionId = req.body.questionId
-    let increment = req.body.answer ? 1 : -1;
+    const questionId = req.body.questionId
+    const increment = req.body.answer ? 1 : -1;
+    const score = req.body.answer ? 0 : 1;
 
     const searchQuery = {
         googleId:  req.user.googleId,
         "questionSet._id": mongoose.Types.ObjectId(questionId)
     }
+
+
     User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {returnNewDocument: true})
     .exec()
     .then(user => {
-        res.sendStatus(204)
+        const scores = user.scores;
+        const newScores = scores.map(x => {
+            let key = Object.keys(x)
+            if (key[0] === req.body.dothWord) {
+                x[key][score]++
+            }
+            return x
+        })
+        return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {returnNewDocument: true})
+    })
+    .then(user => {
+        const total = [0, 0];
+        user.scores.forEach(x => {
+            let key = Object.keys(x);
+            total[0] += x[key][0]
+            total[1] += x[key][1]
+        })
+        console.log(total)
+        return res.json({total: total})
     })
     .catch(err => {
         res.status(500).send(err)

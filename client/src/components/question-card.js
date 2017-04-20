@@ -30,7 +30,7 @@ export class QuestionCard extends React.Component {
         } else {
              correct = false;
         }
-        this.props.dispatch(actions.submitAnswer(correct, questionId, userAnswer));
+        this.props.dispatch(actions.submitAnswer(correct, questionId, userAnswer, dothWord));
         this.setState({value: ""});
     }
 
@@ -80,7 +80,9 @@ const mapStateToProps = (state, props) => ({
     currentQuestion: state.currentQuestion,
     correct: state.correct,
     userAnswer: state.userAnswer,
-    languageOrder: state.languageOrder
+    languageOrder: state.languageOrder,
+    totalCorrect: state.totalCorrect,
+    totalIncorrect: state.totalIncorrect,
 })
 
 export default connect(mapStateToProps)(QuestionCard);

@@ -4,6 +4,7 @@ const UserSchema = mongoose.Schema({
     googleId: {type: Number, required: true},
     accessToken: {type: String, required: true},
     questionSet: {type: Array},
+    scores: {type: Array}
 });
 
 UserSchema.methods.populateQuestions = function() {
