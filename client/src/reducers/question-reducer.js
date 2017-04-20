@@ -4,7 +4,7 @@ const initialState = {
     currentQuestion: {},
     userAnswer: null,
     correct: null,
-    languageOrder: false,
+    languageOrder: true,
 }
 
 const QuestionReducer = (state=initialState, action) => {

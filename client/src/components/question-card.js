@@ -39,6 +39,7 @@ export class QuestionCard extends React.Component {
         const correct = this.props.correct;
         const userAnswer = this.props.userAnswer;
         const currentQuestion = this.props.currentQuestion
+
         const question = this.props.languageOrder ? currentQuestion.wordDothraki : currentQuestion.wordEnglish;
 
         const answer = this.props.languageOrder ? currentQuestion.wordEnglish : currentQuestion.wordDothraki;
