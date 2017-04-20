@@ -36,11 +36,25 @@ export class QuestionPage extends React.Component {
 
     render() {
         return (
-            <div className="Question-page">
-                <Logout />
-                <Reset />
-                <QuestionCard />
-                <ReverseOrder />
+            <div className="question-page">
+                <div className="nav-bar-container">
+                    <nav className="nav-bar">
+                        <ul className="nav-bar-list">
+                            <li>
+                                <ReverseOrder />
+                            </li>
+                            <li>
+                                <Reset />
+                            </li>
+                            <li>
+                                <Logout />
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div className="flash-card-container">
+                    <QuestionCard />
+                </div>
             </div>
         );
     }
