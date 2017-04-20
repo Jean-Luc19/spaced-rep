@@ -44,9 +44,6 @@ export class QuestionPage extends React.Component {
                             <li>
                                 <Settings />
                             </li>
-                            <li>
-                                <Logout />
-                            </li>
                         </ul>
                     </nav>
                 </div>
