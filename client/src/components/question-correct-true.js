@@ -29,7 +29,7 @@ class RightCard extends React.Component {
         const question = this.props.question;
         const style = this.state.correct ? {color: 'green'} : {color: 'steelblue'};
         return (
-            <div className="result-card-right">
+            <div className="flash-card result-card-right">
                 <h2>The Answer Was: {answer.toLowerCase()}</h2>
                 <h3 className='feedback' id='result-question' style={style} >{question}</h3>
                 <h3 className='feedback' style={style} >{userAnswer.toLowerCase()}</h3>

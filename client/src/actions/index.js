@@ -115,6 +115,7 @@ export const reset = () => dispatch => {
         }
     })
     .then(response => {
+        dispatch(getQuestion());
         return dispatch(resetSuccess());
     })
     .catch(err => {
