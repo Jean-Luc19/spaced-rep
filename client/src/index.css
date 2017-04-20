@@ -117,17 +117,18 @@ a:visited {
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+    text-shadow: 2px 2px 2px #aaa;
 }
 
 .fly-in-text li {
     display: inline-block;
     margin-right: 15px;
-    font-family: Open Sans, Arial;
-    font-weight: 300;
-    font-size: 2em;
-    color: grey;
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight: 900;
+    font-size: 4em;
+    color: steelblue;
     opacity: 1;
-    transition: all 2.5s ease;
+    transition: all 4s ease;
 }
 .fly-in-text li:last-child {
     margin-right:0;
