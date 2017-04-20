@@ -6,6 +6,7 @@ import QuestionCard from './question-card';
 import Logout from './logout';
 import ReverseOrder from './reverse-order';
 import Reset from './reset';
+import Settings from './settings';
 
 export class QuestionPage extends React.Component {
     constructor(props) {
@@ -41,10 +42,7 @@ export class QuestionPage extends React.Component {
                     <nav className="nav-bar">
                         <ul className="nav-bar-list">
                             <li>
-                                <ReverseOrder />
-                            </li>
-                            <li>
-                                <Reset />
+                                <Settings />
                             </li>
                             <li>
                                 <Logout />
