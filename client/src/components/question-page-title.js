@@ -22,12 +22,12 @@ class QuestionPageTitle extends Component {
 
     render() {
         const style2 = {transform: `translate(${0}px, ${0}px)`};
-        const title = this.props.title.toUpperCase().split('').map((x,i) => <li key={i} style={this.state.hidden ? {transform: `translate(${Math.floor(Math.random() * - 800) + 400}px, ${Math.floor(Math.random() * - 800) + 400}px)`} : style2}>{x}</li>)
+        const title = this.props.title.toUpperCase().split('').map((x,i) => <span key={i} style={this.state.hidden ? {transform: `translate(${Math.floor(Math.random() * - 800) + 400}px, ${Math.floor(Math.random() * - 800) + 400}px)`} : style2}>{x}</span>)
         return (
             <div>
-                <ul className={`fly-in-text ${this.state.hidden}`}>
+                <div className={`fly-in-text ${this.state.hidden}`}>
                     {title}
-                </ul>
+                </div>
             </div>
         )
     }

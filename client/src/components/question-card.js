@@ -48,7 +48,7 @@ export class QuestionCard extends React.Component {
 
         if (correct) {
             return (
-                <RightCard answer={answer} userAnswer={userAnswer}/>
+                <RightCard answer={answer} userAnswer={userAnswer} question={question}/>
             )
         } else if (!correct && !userAnswer) {
             return (
@@ -68,9 +68,9 @@ export class QuestionCard extends React.Component {
                     </form>
                 </div>
             )
-        } else if (correct === false) {
+        } else if (!correct) {
             return (
-                <WrongCard englishAnswer={currentQuestion.wordEnglish} userAnswer={userAnswer}/>
+                <WrongCard answer={answer} userAnswer={userAnswer} question={question}/>
             )
         }
     };

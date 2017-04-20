@@ -6,17 +6,33 @@ import {Link} from 'react-router-dom';
 class WrongCard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            correct: false,
+        }
+    }
+
+    changeClass() {
+        const timeOut = setTimeout(
+            () => this.setState({correct: true})
+            ,2000)
+
+    }
+
+    componentDidMount(){
+        this.changeClass()
     }
 
     render() {
-        const currentQuestion = this.props.englishAnswer
+        const answer = this.props.answer
         const userAnswer = this.props.userAnswer;
+        const question = this.props.question;
+        const style = this.state.correct ? {color: 'red'} : {color: 'steelblue'};
 
         return (
             <div className="result-card-wrong">
-                <h1>Darn so Close!</h1>
-                <h2>The Answer Was: {currentQuestion.toLowerCase()}</h2>
-                <h3>Your Answer Was: {this.props.userAnswer.toLowerCase()}</h3>
+                <h2>The Answer Was: {answer.toLowerCase()}</h2>
+                <h3 className='feedback' id='result-question' style={style} >{question}</h3>
+                <h3 className='feedback' style={style} >{userAnswer.toLowerCase()}</h3>
                 <button onClick={() => this.props.dispatch(actions.nextQuestion())}>Next</button>
             </div>
         );

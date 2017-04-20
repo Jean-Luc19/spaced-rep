@@ -2,21 +2,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
 import {Link} from 'react-router-dom';
+import QuestionPageTitle from './question-page-title'
 
 class RightCard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            correct: false,
+        }
+    }
+
+    changeClass() {
+        const timeOut = setTimeout(
+            () => this.setState({correct: true})
+            ,2000)
+
+    }
+
+    componentDidMount(){
+        this.changeClass()
     }
 
     render() {
-        const currentQuestion = this.props.answer
+        const answer = this.props.answer;
         const userAnswer = this.props.userAnswer;
-
+        const question = this.props.question;
+        const style = this.state.correct ? {color: 'green'} : {color: 'steelblue'};
         return (
             <div className="result-card-right">
-                <h1>You Got It Right!</h1>
-                <h2>The Answer Was: {currentQuestion.toLowerCase()}</h2>
-                <h3>Your Answer Was: {userAnswer.toLowerCase()}</h3>
+                <h2>The Answer Was: {answer.toLowerCase()}</h2>
+                <h3 className='feedback' id='result-question' style={style} >{question}</h3>
+                <h3 className='feedback' style={style} >{userAnswer.toLowerCase()}</h3>
                 <button onClick={() => this.props.dispatch(actions.nextQuestion())}>Next</button>
             </div>
         );
