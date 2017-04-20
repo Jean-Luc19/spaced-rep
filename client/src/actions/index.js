@@ -94,9 +94,7 @@ export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
 export const RESET = 'RESET';
 
 export const reset = () => dispatch => {
-    console.log('hello');
     const accessToken = Cookies.get('accessToken');
-    console.log(accessToken);
     return fetch('/api/reset', {
         headers: {
             'Authorization': `bearer ${accessToken}`
