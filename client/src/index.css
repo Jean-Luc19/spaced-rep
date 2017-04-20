@@ -93,3 +93,20 @@ body {
     opacity: 0;
     transform: translateX(-200px) translateY(-200px)
 }
+
+.feedback {
+    position: absolute;
+    display: inline-block;
+    margin-right: 15px;
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight: 900;
+    font-size: 4em;
+    color: steelblue;
+    left: 20%;
+    top: 50%;
+    text-shadow: 2px 2px 2px #aaa;
+}
+
+#result-question {
+    top: 35%;
+}
