@@ -12,7 +12,7 @@ class QuestionPageTitle extends Component {
     changeClass() {
         const timeOut = setTimeout(
             () => this.setState({hidden: ''})
-            ,500)
+            ,100)
 
     }
 
@@ -22,7 +22,7 @@ class QuestionPageTitle extends Component {
 
     render() {
         const style2 = {transform: `translate(${0}px, ${0}px)`};
-        const title = this.props.title.split('').map((x,i) => <li key={i} style={this.state.hidden ? {transform: `translate(${Math.floor(Math.random() * 400) - 200}px, ${Math.floor(Math.random() * 400) - 200}px)`} : style2}>{x}</li>)
+        const title = this.props.title.toUpperCase().split('').map((x,i) => <li key={i} style={this.state.hidden ? {transform: `translate(${Math.floor(Math.random() * - 800) + 400}px, ${Math.floor(Math.random() * - 800) + 400}px)`} : style2}>{x}</li>)
         return (
             <div>
                 <ul className={`fly-in-text ${this.state.hidden}`}>
