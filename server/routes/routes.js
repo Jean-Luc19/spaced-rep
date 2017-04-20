@@ -58,10 +58,23 @@ router.post('/api/question', (req, res) => {
     })
 });
 
-// router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req, res) => {
-//     const searchQuery = {googleId: req.user.googleId}
-//     User.findOneAndUpdate(searchQuery, {$set: {memory: 0}})
-// })
+router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req, res) => {
+    const searchQuery = {googleId: req.user.googleId}
+    User.find(searchQuery)
+    .then((response) => {
+        const UpdatedQuestionSet = response[0].questionSet.map((question) => {
+            question.memory = 0;
+            return question;
+        })
+        return User.findOneAndUpdate(searchQuery, {$set: {questionSet: UpdatedQuestionSet}}, { new: true })
+    })
+    .then(response => {
+        res.sendStatus(205);
+    })
+    .catch(err => {
+        res.status(500).send(err)
+    })
+})
 
 // takes question id, and whether answer was right or wrong
 // to update memory value.
