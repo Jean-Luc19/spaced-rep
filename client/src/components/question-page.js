@@ -5,6 +5,7 @@ import * as actions from '../actions';
 import QuestionCard from './question-card';
 import Logout from './logout';
 import ReverseOrder from './reverse-order';
+import Reset from './reset';
 
 export class QuestionPage extends React.Component {
     constructor(props) {
@@ -37,6 +38,7 @@ export class QuestionPage extends React.Component {
         return (
             <div className="Question-page">
                 <Logout />
+                <Reset />
                 <QuestionCard />
                 <ReverseOrder />
             </div>

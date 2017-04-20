@@ -104,3 +104,33 @@ export const getQuestion = () => dispatch => {
         return dispatch(getQuestionFailure(err))
     })
 };
+
+export const RESET = 'RESET';
+
+export const reset = () => dispatch => {
+    const accessToken = Cookies.get('accessToken');
+    return fetch('/api/reset', {
+        headers: {
+            'Authorization': `bearer ${accessToken}`
+        }
+    })
+    .then(response => {
+        return dispatch(resetSuccess());
+    })
+    .catch(err => {
+        return dispatch(resetError(err));
+    })
+}
+
+export const RESET_ERROR = 'RESET_ERROR';
+
+export const resetError = (err) => ({
+    type: RESET_ERROR,
+    err
+});
+
+export const RESET_SUCCESS = 'RESET_SUCCESS';
+
+export const resetSuccess = () => ({
+    type: RESET_SUCCESS,
+})
