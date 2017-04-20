@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
 import ReverseOrder from './reverse-order';
+import Logout from './logout'
 import Reset from './reset'
 
 class Settings extends React.Component {
@@ -16,16 +17,23 @@ class Settings extends React.Component {
         if (this.state.settings) {
             return (
                 <div className="setting-model">
-                    <h3>Settings</h3>
-                    <ul className="setting-options">
-                        <li>
-                            <ReverseOrder />
-                        </li>
-                        <li>
-                            <Reset />
-                        </li>
-                    </ul>
-                    <button onClick={() => this.setState({settings: false})}>Exit Settings</button>
+                    <div className="setting-options-container">
+                        <h3>Settings</h3>
+                        <ul className="setting-options">
+                            <li>
+                                <ReverseOrder />
+                            </li>
+                            <li>
+                                <Reset />
+                            </li>
+                            <li>
+                                <Logout />
+                            </li>
+                            <li>
+                                <button onClick={() => this.setState({settings: false})}>Exit</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             )
         } else {
