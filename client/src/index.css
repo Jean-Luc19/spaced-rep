@@ -116,7 +116,6 @@ a:visited {
 .question-page {
     display: flex;
     max-width: 600px;
-    max-height: 400px;
     min-height: 400px;
     margin: 200px auto;
     flex-direction: column;
