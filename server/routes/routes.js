@@ -58,6 +58,11 @@ router.post('/api/question', (req, res) => {
     })
 });
 
+// router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req, res) => {
+//     const searchQuery = {googleId: req.user.googleId}
+//     User.findOneAndUpdate(searchQuery, {$set: {memory: 0}})
+// })
+
 // takes question id, and whether answer was right or wrong
 // to update memory value.
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
