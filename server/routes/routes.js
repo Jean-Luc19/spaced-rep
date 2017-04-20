@@ -58,13 +58,7 @@ router.post('/api/question', (req, res) => {
     })
 });
 
-// router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req, res) => {
-//     const searchQuery = {googleId: req.user.googleId}
-//     User.findOneAndUpdate(searchQuery, {$set: {memory: 0}})
-// })
 
-// takes question id, and whether answer was right or wrong
-// to update memory value.
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
     let questionId = req.body.questionId
     let increment = req.body.answer ? 1 : -1;
@@ -93,7 +87,7 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
         questions.sort((a,b) => {
             return a.memory - b.memory
         })
-        res.json({question: questions[0]})
+        res.json({question: questions[Math.floor(Math.random() * 3)]})
     })
     .catch(err => {
         res.status(500).json(err)
