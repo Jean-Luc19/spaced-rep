@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import * as Cookies from 'js-cookie';
+//-----------------------Get Question Actions----------------------//
 
 export const GET_QUESTION = 'GET_QUESTION';
 
@@ -16,6 +17,8 @@ export const getQuestionFailure = (err) => ({
     type: GET_QUESTION_FAILURE,
     err
 });
+
+//----------------------Submit Answer Actions----------------------//
 
 export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 
@@ -36,6 +39,8 @@ export const submitAnswerFailure = (err) => ({
     err
 });
 
+//----------------------Next Question Actions----------------------//
+
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 
 export const NEXT_QUESTION_SUCCESS = 'NEXT_QUESTION_SUCCESS';
@@ -50,6 +55,15 @@ export const nextQuestion = () => dispatch => {
         return dispatch(nextQuestionSuccess())
     })
 }
+//----------------------Settings Actions----------------------//
+
+export const REVERSE_LANGUAGE_ORDER = 'REVERSE_LANGUAGE_ORDER';
+
+export const reverseLanguageOrder = () => ({
+    type: REVERSE_LANGUAGE_ORDER
+})
+
+//----------------------Async Actions----------------------//
 
 export const submitAnswer = (correct, questionId, userAnswer) => dispatch => {
     console.log(correct, questionId, userAnswer);
