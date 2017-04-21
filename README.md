@@ -30,12 +30,14 @@ You can run it locally now with `npm run dev`, but the Google OAuth stuff won't 
 ##Technologies
 
 ###Front End
+
 1. HTML
 2. React
 3. React Redux
 4. Css
 
 ###Backend
+
 1. Node
 2. Express
 3. MongoDB
