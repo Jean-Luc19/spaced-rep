@@ -34,7 +34,7 @@ class RightCard extends React.Component {
             <div className="flash-card result-card-right">
                 <h3>The Word Was</h3>
                 <h3 className='feedback' id='result-question' style={style} >{question}</h3>
-                <h2>The Answer Was</h2>
+                <h2>Your Answer Was</h2>
                 <h3 className='feedback' style={style} >{userAnswer.toLowerCase()}</h3>
                 <h4 className={message} >You Got It Right!!!</h4>
                 <button onClick={() => this.props.dispatch(actions.nextQuestion())}>Next</button>
