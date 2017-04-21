@@ -28,15 +28,17 @@ $ npm install
 You can run it locally now with `npm run dev`, but the Google OAuth stuff won't work without your own credentials.
 
 ##Technologies
+
 ###Front End
-HTML
-React
-React Redux
-Css
+1. HTML
+2. React
+3. React Redux
+4. Css
+
 ###Backend
-Node
-Express
-MongoDB
-Mongoose
-Passport
-Google OATH
+1. Node
+2. Express
+3. MongoDB
+4. Mongoose
+5. Passport
+6. Google OATH
