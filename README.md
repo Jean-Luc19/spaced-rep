@@ -64,7 +64,7 @@ You can run it locally now with `npm run dev`, but the Google OAuth stuff won't 
 
 ### Development Roadmap
 
-This is v1.o of Dothraki-X, but future enhancements are in the works.
+This is v1.0 of Dothraki-X, but future enhancements are in the works.
 
 ### Future Developments:
 
