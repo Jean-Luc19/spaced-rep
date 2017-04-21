@@ -320,6 +320,27 @@ a:visited {
     .score span {
         right: 36%;
     }
+
+@media (max-width: 375px) {
+    html {
+        overflow: hidden;
+    }
+
+    .login-page {
+        margin-top: 20px;
+        margin-right: 0;
+        margin-left: 23px;
+        width: 300px;
+    }
+
+    .question-page {
+        width: 300px;
+    }
+
+    .fly-in-text span{
+        font-size: 1.5em;
+    }
+}
 }
 
 /*Add media Query to change font for fly in words*/
