@@ -9,7 +9,7 @@ Learning a new language is difficult, spaced repetition seeks to make it easier 
 
 ### Wire Frames
 Wireframes constructed at [Moqups.com](https://app.moqups.com/)
-<img src="client/public/images/wireframes.png" />
+![wireframe](https://raw.githubusercontent.com/Jean-Luc19/spaced-rep/readme/client/src/images/wireframes.png)
 
 ### Clone the repo
 
@@ -27,16 +27,16 @@ $ npm install
 
 You can run it locally now with `npm run dev`, but the Google OAuth stuff won't work without your own credentials.
 
-##Technologies
+## Technologies
 
-###Front End
+### Front End
 
 1. HTML
 2. React
 3. React Redux
 4. Css
 
-###Backend
+### Backend
 
 1. Node
 2. Express
