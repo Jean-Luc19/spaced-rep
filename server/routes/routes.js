@@ -69,6 +69,15 @@ router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req,
         })
         return User.findOneAndUpdate(searchQuery, {$set: {questionSet: UpdatedQuestionSet}}, { new: true })
     })
+    .then(user => {
+        const scores = user.scores;
+        const newScores = scores.map(x => {
+            let key = Object.keys(x)
+            x[key] = [0,0]
+            return x
+        })
+        return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {new: true})
+    })
     .then(response => {
         res.sendStatus(205);
     })
@@ -89,7 +98,7 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
     }
 
 
-    User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {returnNewDocument: true})
+    User.findOneAndUpdate(searchQuery,{$inc: {'questionSet.$.memory': increment}}, {new: true})
     .exec()
     .then(user => {
         const scores = user.scores;
@@ -100,9 +109,10 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
             }
             return x
         })
-        return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {returnNewDocument: true})
+        return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {new: true})
     })
     .then(user => {
+        console.log(user.scores);
         const total = [0, 0];
         user.scores.forEach(x => {
             let key = Object.keys(x);
@@ -127,7 +137,15 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
         questions.sort((a,b) => {
             return a.memory - b.memory
         })
-        res.json({question: questions[Math.floor(Math.random() * 3)]})
+
+        const total = [0, 0];
+        user.scores.forEach(x => {
+            let key = Object.keys(x);
+            total[0] += x[key][0]
+            total[1] += x[key][1]
+        })
+
+        res.json({question: questions[Math.floor(Math.random() * 3)], scores: total})
     })
     .catch(err => {
         res.status(500).json(err)

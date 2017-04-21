@@ -12,7 +12,8 @@ const initialState = {
 const QuestionReducer = (state=initialState, action) => {
     switch (action.type) {
         case actions.GET_QUESTION_SUCCESS:
-            return {...state, currentQuestion: action.question.question, previousQuestion: action.question.question};
+            console.log(action.question)
+            return {...state, currentQuestion: action.question.question, previousQuestion: action.question.question, totalCorrect: action.question.scores[0], totalIncorrect: action.question.scores[1]};
         case actions.GET_QUESTION_FAILURE:
             console.error(action.err)
             return state;
@@ -26,6 +27,8 @@ const QuestionReducer = (state=initialState, action) => {
             return {...state, correct: null, userAnswer: null};
         case actions.REVERSE_LANGUAGE_ORDER_SUCCESS:
             return {...state, languageOrder:!state.languageOrder}
+        case actions.RESET_SUCCESS:
+            return {...state, totalCorrect: 0, totalIncorrect: 0}
         default:
             return state;
     }

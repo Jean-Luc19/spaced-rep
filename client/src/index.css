@@ -145,6 +145,32 @@ a:visited {
     padding: 0;
 }
 
+.score div {
+    display: inline-block;
+}
+
+.score span {
+    font-size: 12px;
+    display: block;
+    margin: 2px 1px;
+}
+
+#score-title span {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+#score-title {
+    vertical-align: top;
+    margin-top: 4px;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    right: 41%;
+}
+
 .nav-bar-list li {
     display: inline-block;
     text-align: center;
@@ -289,5 +315,11 @@ a:visited {
 }
 
 /*MEDIA QUERIES*/
+
+@media (max-width: 786px) {
+    .score span {
+        right: 36%;
+    }
+}
 
 /*Add media Query to change font for fly in words*/

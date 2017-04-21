@@ -110,6 +110,7 @@ export const getQuestion = () => dispatch => {
         return response.json();
     })
     .then(question => {
+        console.log(question);
         return dispatch(getQuestionSuccess(question))
     })
     .catch(err => {

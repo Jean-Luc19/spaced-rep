@@ -36,10 +36,20 @@ export class QuestionPage extends React.Component {
     }
 
     render() {
+        console.log(this.props.totalCorrect);
         return (
             <div className="question-page">
                 <div className="nav-bar-container">
                     <nav className="nav-bar">
+                        <div className="score">
+                            <div id="score-title">
+                                <span>Life Time Stats</span>
+                            </div>
+                            <div className="score-stats">
+                                <span>Correct: {this.props.totalCorrect}</span>
+                                <span>Incorrect: {this.props.totalIncorrect}</span>
+                            </div>
+                        </div>
                         <ul className="nav-bar-list">
                             <li>
                                 <Settings />
@@ -56,7 +66,9 @@ export class QuestionPage extends React.Component {
 }
 
 const mapstateToProps = (state, props) => ({
-    currentQuestion: state.currentQuestion
+    currentQuestion: state.currentQuestion,
+    totalCorrect: state.totalCorrect,
+    totalIncorrect: state.totalIncorrect
 })
 
 export default connect(mapstateToProps)(QuestionPage);

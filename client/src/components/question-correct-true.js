@@ -16,7 +16,7 @@ class RightCard extends React.Component {
     changeClass() {
         const timeOut = setTimeout(
             () => this.setState({correct: true, disabled: false})
-            ,1000)
+            ,1500)
 
     }
 
