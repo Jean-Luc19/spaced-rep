@@ -53,17 +53,12 @@ export class QuestionCard extends React.Component {
         } else if (!correct && !userAnswer) {
             return (
                 <div className="flash-card">
-                    <h2>English Word</h2>
-                    <h3>{currentQuestion.wordEnglish}</h3>
                     <div className="user-status">
-                        <p>Difficulty: {currentQuestion.difficulty}</p>
                     </div>
                     {title}
                     <form className="flash-card-form"
                         onSubmit={(e) => this.onSubmitAnswer(e)}>
-                        <label>Input Your Answer
-                        </label>
-                        <input type="text" onChange={(e) => this.onChangeValue(e)} value={this.state.value} placeholder="English Equivalent"></input>
+                        <input className="question-card-input" type="text" onChange={(e) => this.onChangeValue(e)} value={this.state.value} placeholder="Input Answer"></input>
                         <button type="submit">Submit Answer</button>
                     </form>
                 </div>
