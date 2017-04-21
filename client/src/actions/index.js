@@ -60,9 +60,16 @@ export const nextQuestion = () => dispatch => {
 
 export const REVERSE_LANGUAGE_ORDER = 'REVERSE_LANGUAGE_ORDER';
 
-export const reverseLanguageOrder = () => ({
-    type: REVERSE_LANGUAGE_ORDER
+export const REVERSE_LANGUAGE_ORDER_SUCCESS = 'REVERSE_LANGUAGE_ORDER_SUCCESS';
+
+export const reverseLanguageOrderSuccess = () => ({
+    type: REVERSE_LANGUAGE_ORDER_SUCCESS
 })
+
+export const reverseLanguageOrder = () => dispatch => {
+    dispatch(getQuestion());
+    return dispatch(reverseLanguageOrderSuccess())
+}
 
 //----------------------Async Actions----------------------//
 

@@ -24,7 +24,7 @@ const QuestionReducer = (state=initialState, action) => {
             return state;
         case actions.NEXT_QUESTION_SUCCESS:
             return {...state, correct: null, userAnswer: null};
-        case actions.REVERSE_LANGUAGE_ORDER:
+        case actions.REVERSE_LANGUAGE_ORDER_SUCCESS:
             return {...state, languageOrder:!state.languageOrder}
         default:
             return state;
