@@ -55,8 +55,12 @@ passport.use(
         .then((questions) => {
             if (questions) {
                 const scores = questions.map(q => {
-                    let arr = q.wordDothraki
-                    return {[arr]: [0,0]}
+                    let dothWord = q.wordDothraki;
+                    return {
+                        word: dothWord,
+                        correct: 0,
+                        incorrect: 0
+                    }
 
                 })
 

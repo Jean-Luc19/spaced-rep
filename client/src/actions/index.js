@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import * as Cookies from 'js-cookie';
+
 //-----------------------Get Question Actions----------------------//
 
 export const GET_QUESTION = 'GET_QUESTION';
@@ -24,12 +25,13 @@ export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 
 export const SUBMIT_ANSWER_SUCCESS = 'SUBMIT_ANSWER_SUCCESS';
 
-export const submitAnswerSuccess = (correct, userAnswer, scores) => ({
+export const submitAnswerSuccess = (correct, userAnswer, totalCorrect, totalIncorrect) => ({
     type: SUBMIT_ANSWER_SUCCESS,
     payload: {
         correct,
         userAnswer,
-        scores
+        totalCorrect,
+        totalIncorrect
     }
 });
 
@@ -92,7 +94,7 @@ export const submitAnswer = (correct, questionId, userAnswer, dothWord) => dispa
         return response.json()
     })
     .then(response => {
-        return dispatch(submitAnswerSuccess(correct, userAnswer, response.total));
+        return dispatch(submitAnswerSuccess(correct, userAnswer, response.totalCorrect, response.totalIncorrect));
     })
     .catch(err => {
         return dispatch(submitAnswerFailure(err));

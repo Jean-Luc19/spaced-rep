@@ -72,8 +72,8 @@ router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req,
     .then(user => {
         const scores = user.scores;
         const newScores = scores.map(x => {
-            let key = Object.keys(x)
-            x[key] = [0,0]
+            x.correct = 0;
+            x.incorrect = 0;
             return x
         })
         return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {new: true})
@@ -90,7 +90,7 @@ router.get('/api/reset', bearer.authenticate('bearer', {session: false }), (req,
 router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req, res) => {
     const questionId = req.body.questionId
     const increment = req.body.answer ? 1 : -1;
-    const score = req.body.answer ? 0 : 1;
+    const isCorrect = req.body.answer ? 1 : 0;
 
     const searchQuery = {
         googleId:  req.user.googleId,
@@ -103,24 +103,20 @@ router.post('/api/answer', bearer.authenticate('bearer', {session: false}), (req
     .then(user => {
         const scores = user.scores;
         const newScores = scores.map(x => {
-            let key = Object.keys(x)
-            if (key[0] === req.body.dothWord) {
-                x[key][score]++
+            if (x.word === req.body.dothWord) {
+                isCorrect ? x.correct++ : x.incorrect++;
             }
             return x
         })
         return User.findOneAndUpdate({googleId: req.user.googleId}, {$set: {'scores': newScores}}, {new: true})
     })
     .then(user => {
-        console.log(user.scores);
-        const total = [0, 0];
+        let totalCorrect = 0, totalIncorrect = 0
         user.scores.forEach(x => {
-            let key = Object.keys(x);
-            total[0] += x[key][0]
-            total[1] += x[key][1]
+            totalCorrect += x.correct
+            totalIncorrect += x.incorrect
         })
-        console.log(total)
-        return res.json({total: total})
+        return res.json({totalCorrect: totalCorrect, totalIncorrect: totalIncorrect})
     })
     .catch(err => {
         res.status(500).send(err)
@@ -138,14 +134,13 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
             return a.memory - b.memory
         })
 
-        const total = [0, 0];
+        let totalCorrect = 0, totalIncorrect = 0
         user.scores.forEach(x => {
-            let key = Object.keys(x);
-            total[0] += x[key][0]
-            total[1] += x[key][1]
+            totalCorrect += x.correct
+            totalIncorrect += x.incorrect
         })
 
-        res.json({question: questions[Math.floor(Math.random() * 3)], scores: total})
+        res.json({question: questions[Math.floor(Math.random() * 3)], totalCorrect: totalCorrect, totalIncorrect: totalIncorrect})
     })
     .catch(err => {
         res.status(500).json(err)
