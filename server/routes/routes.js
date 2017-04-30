@@ -34,6 +34,7 @@ router.get('/api/me',
     })
 );
 
+//we can get rid of this
 router.get('/api/questions',
     bearer.authenticate('bearer', {session: false}),
     (req, res) => res.json(['Question 1', 'Question 2'])
