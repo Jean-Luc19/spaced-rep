@@ -9,7 +9,7 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.methods.populateQuestions = function() {
     return Question.find();
-}
+};
 
 const User = mongoose.model('User', UserSchema);
 
