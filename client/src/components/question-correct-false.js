@@ -9,22 +9,22 @@ class WrongCard extends React.Component {
         this.state = {
             correct: false,
             disabled: true,
-        }
+        };
     }
 
     changeClass() {
         const timeOut = setTimeout(
             () => this.setState({correct: true, disabled: false})
-            ,1500)
+            ,1500);
 
     }
 
     componentDidMount(){
-        this.changeClass()
+        this.changeClass();
     }
 
     render() {
-        const answer = this.props.answer
+        const answer = this.props.answer;
         const userAnswer = this.props.userAnswer;
         const question = this.props.question;
         const style = this.state.correct ? {color: 'red'} : {color: 'steelblue'};

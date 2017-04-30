@@ -10,11 +10,11 @@ export class QuestionCard extends React.Component {
         super(props);
         this.state = {
             value: "",
-        }
+        };
     }
 
     onChangeValue(e) {
-        this.setState({value: e.target.value})
+        this.setState({value: e.target.value});
     }
 
     onSubmitAnswer(e) {
@@ -38,18 +38,18 @@ export class QuestionCard extends React.Component {
 
         const correct = this.props.correct;
         const userAnswer = this.props.userAnswer;
-        const currentQuestion = this.props.currentQuestion
+        const currentQuestion = this.props.currentQuestion;
 
         const question = this.props.languageOrder ? currentQuestion.wordDothraki : currentQuestion.wordEnglish;
 
         const answer = this.props.languageOrder ? currentQuestion.wordEnglish : currentQuestion.wordDothraki;
 
-        const title = currentQuestion.wordDothraki ? <QuestionPageTitle title={question}/> : ''
+        const title = currentQuestion.wordDothraki ? <QuestionPageTitle title={question}/> : '';
 
         if (correct) {
             return (
                 <RightCard answer={answer} userAnswer={userAnswer} question={question}/>
-            )
+            );
         } else if (!correct && !userAnswer) {
             return (
                 <div className="flash-card">
@@ -62,11 +62,11 @@ export class QuestionCard extends React.Component {
                         <button type="submit">Submit Answer</button>
                     </form>
                 </div>
-            )
+            );
         } else if (!correct) {
             return (
                 <WrongCard answer={answer} userAnswer={userAnswer} question={question}/>
-            )
+            );
         }
     };
 }

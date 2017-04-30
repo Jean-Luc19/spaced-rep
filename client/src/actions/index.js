@@ -50,14 +50,14 @@ export const NEXT_QUESTION_SUCCESS = 'NEXT_QUESTION_SUCCESS';
 
 export const nextQuestionSuccess = () => ({
     type: NEXT_QUESTION_SUCCESS
-})
+});
 
 export const nextQuestion = () => dispatch => {
     return dispatch(getQuestion())
     .then(() => {
-        return dispatch(nextQuestionSuccess())
-    })
-}
+        return dispatch(nextQuestionSuccess());
+    });
+};
 //----------------------Settings Actions----------------------//
 
 export const REVERSE_LANGUAGE_ORDER = 'REVERSE_LANGUAGE_ORDER';
@@ -66,12 +66,12 @@ export const REVERSE_LANGUAGE_ORDER_SUCCESS = 'REVERSE_LANGUAGE_ORDER_SUCCESS';
 
 export const reverseLanguageOrderSuccess = () => ({
     type: REVERSE_LANGUAGE_ORDER_SUCCESS
-})
+});
 
 export const reverseLanguageOrder = () => dispatch => {
     dispatch(getQuestion());
-    return dispatch(reverseLanguageOrderSuccess())
-}
+    return dispatch(reverseLanguageOrderSuccess());
+};
 
 //----------------------Async Actions----------------------//
 
@@ -91,18 +91,18 @@ export const submitAnswer = (correct, questionId, userAnswer, dothWord) => dispa
         })
     })
     .then(response => {
-        return response.json()
+        return response.json();
     })
     .then(response => {
         return dispatch(submitAnswerSuccess(correct, userAnswer, response.totalCorrect, response.totalIncorrect));
     })
     .catch(err => {
         return dispatch(submitAnswerFailure(err));
-    })
-}
+    });
+};
 
 export const getQuestion = () => dispatch => {
-    const accessToken = Cookies.get('accessToken')
+    const accessToken = Cookies.get('accessToken');
     return fetch('/api/getQuestion', {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -113,11 +113,11 @@ export const getQuestion = () => dispatch => {
     })
     .then(question => {
         console.log(question);
-        return dispatch(getQuestionSuccess(question))
+        return dispatch(getQuestionSuccess(question));
     })
     .catch(err => {
-        return dispatch(getQuestionFailure(err))
-    })
+        return dispatch(getQuestionFailure(err));
+    });
 };
 
 export const RESET = 'RESET';
@@ -135,8 +135,8 @@ export const reset = () => dispatch => {
     })
     .catch(err => {
         return dispatch(resetError(err));
-    })
-}
+    });
+};
 
 export const RESET_ERROR = 'RESET_ERROR';
 
@@ -149,4 +149,4 @@ export const RESET_SUCCESS = 'RESET_SUCCESS';
 
 export const resetSuccess = () => ({
     type: RESET_SUCCESS,
-})
+});

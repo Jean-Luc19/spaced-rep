@@ -13,7 +13,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // Job 4: Redux-ify all of the state and fetch calls to async actions.
+
         const accessToken = Cookies.get('accessToken');
         if (accessToken) {
             fetch('/api/me', {
@@ -23,8 +23,7 @@ class App extends React.Component {
             }).then(res => {
                 if (!res.ok) {
                     if (res.status === 401) {
-                        // Unauthorized, clear the cookie and go to
-                        // the login page
+
                         Cookies.remove('accessToken');
                         return;
                     }
@@ -35,7 +34,7 @@ class App extends React.Component {
                 {
                 this.setState({
                     currentUser
-                })
+                });
             }
             );
         }
@@ -48,7 +47,7 @@ class App extends React.Component {
                     <LoginPage />
                     {this.props.children}
                 </div>
-            )
+            );
 
         }
 

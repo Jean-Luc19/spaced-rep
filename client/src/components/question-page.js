@@ -17,7 +17,7 @@ export class QuestionPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(actions.getQuestion())
+        this.props.dispatch(actions.getQuestion());
         const accessToken = Cookies.get('accessToken');
         fetch('/api/questions', {
                 headers: {
@@ -69,6 +69,6 @@ const mapstateToProps = (state, props) => ({
     currentQuestion: state.currentQuestion,
     totalCorrect: state.totalCorrect,
     totalIncorrect: state.totalIncorrect
-})
+});
 
 export default connect(mapstateToProps)(QuestionPage);

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
-import {Link} from 'react-router-dom';
-import QuestionPageTitle from './question-page-title'
+import * as actions from '../actions';
+import QuestionPageTitle from './question-page-title';
 
 class RightCard extends React.Component {
     constructor(props) {
@@ -10,18 +9,18 @@ class RightCard extends React.Component {
         this.state = {
             correct: false,
             disabled: true
-        }
+        };
     }
 
     changeClass() {
         const timeOut = setTimeout(
             () => this.setState({correct: true, disabled: false})
-            ,1500)
+            ,1500);
 
     }
 
     componentDidMount(){
-        this.changeClass()
+        this.changeClass();
     }
 
     render() {
@@ -30,7 +29,7 @@ class RightCard extends React.Component {
         const question = this.props.question;
         const style = this.state.correct ? {color: 'green'} : {color: 'steelblue'};
         const message = this.state.correct ? "" : "hidden-message";
-        const disabled = this.state.disabled
+        const disabled = this.state.disabled;
 
         return (
             <div className="flash-card result-card-right">

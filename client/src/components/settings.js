@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
+import * as actions from '../actions';
 import ReverseOrder from './reverse-order';
-import Logout from './logout'
-import Reset from './reset'
+import Logout from './logout';
+import Reset from './reset';
 
 class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             settings: false
-        }
+        };
     }
 
     render() {
@@ -35,7 +35,7 @@ class Settings extends React.Component {
                         </ul>
                     </div>
                 </div>
-            )
+            );
         } else {
             return (
                 <div className="settings-container">
