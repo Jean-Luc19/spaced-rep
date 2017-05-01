@@ -10,7 +10,7 @@ let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
   DATABASE_URL: process.env.DATABASE_URL
-}
+};
 
 if(process.env.NODE_ENV != 'production') {
   secret = require('./secret');
@@ -20,14 +20,14 @@ global.secret = secret;
 
 const routes = require('./routes/routes');
 
-const User = require('./models/user')
+const User = require('./models/user');
 
 const app = express();
 
 const database = {
     DATABASE_URL: process.env.DATABASE_URL
 };
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(passport.initialize());
 
@@ -61,7 +61,7 @@ function runServer(port=3001) {
 
 function closeServer() {
     return new Promise((resolve, reject) => {
-        mongoose.connect(DATABASE_URL, err => {})
+        mongoose.connect(DATABASE_URL, err => {});
         server.close(err => {
             if (err) {
                 return reject(err);

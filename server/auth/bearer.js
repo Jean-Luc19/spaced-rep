@@ -1,9 +1,7 @@
 const passport = require('passport');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const User = require('../models/user');
-const Question = require('../models/question');
-const {database} = require('./google');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 mongoose.promise = global.promise;
 
 passport.use(
@@ -15,7 +13,7 @@ passport.use(
                 })
                 .catch(err => {
                     return done(null, false);
-                })
+                });
             }
     )
 );

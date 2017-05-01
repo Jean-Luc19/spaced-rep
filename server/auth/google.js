@@ -39,7 +39,7 @@ passport.use(
         User.findOne(searchQuery)
         .then((user) => {
             if (!user) {
-                return Question.find()
+                return Question.find();
             } else {
                 User.findOneAndUpdate(searchQuery, {$set: updates}, options, (err, user) => {
                     if (err) {
@@ -49,7 +49,7 @@ passport.use(
                     else {
                         return cb(null, user);
                     }
-                })
+                });
             }
         })
         .then((questions) => {
@@ -60,9 +60,9 @@ passport.use(
                         word: dothWord,
                         correct: 0,
                         incorrect: 0
-                    }
+                    };
 
-                })
+                });
 
                 updates['scores'] = scores;
                 updates['questionSet'] = questions;
@@ -73,9 +73,9 @@ passport.use(
                     else {
                         return cb(null, user);
                     }
-                })
+                });
             }
-        })
+        });
     }
 ));
 
