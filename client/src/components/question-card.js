@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
+import * as actions from '../actions';
 import RightCard from './question-correct-true';
 import WrongCard from './question-correct-false';
 import QuestionPageTitle from './question-page-title';

@@ -148,4 +148,33 @@ router.get('/api/getQuestion', bearer.authenticate('bearer', {session: false}), 
     });
 });
 
+router.get('/api/demo', (req, res) => {
+    const demoUser = {
+        googleId: 1234,
+        accessToken: 1234,
+    };
+    return Question.find()
+    .then(questions => {
+        console.log(questions);
+        demoUser.questionSet = questions;
+        const scores = questions.map(q => {
+            let dothWord = q.wordDothraki;
+            return {
+                word: dothWord,
+                correct: 0,
+                incorrect: 0
+            };
+        });
+        demoUser.scores = scores;
+        User.create(demoUser)
+            .then(user => {
+                console.log(user);
+                res.cookie(user.accessToken = 'accessToken', req.user.accessToken, {expires: 0});
+                res.redirect('/');
+            });
+
+    });
+
+});
+
 module.exports = router;

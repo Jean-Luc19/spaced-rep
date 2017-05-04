@@ -9,6 +9,9 @@ export default function LoginPage() {
             <div className="btn-container">
                 <a href={'/api/auth/google'}><button className="login-btn login-btn-google">Login with Google</button></a>
             </div>
+            <div className="btn-container">
+                <a href={'/api/demo'}><button className="login-btn login-btn-google">Demo as a Guest</button></a>
+            </div>
         </div>
     );
 }
