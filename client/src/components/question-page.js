@@ -19,6 +19,11 @@ export class QuestionPage extends React.Component {
     componentDidMount() {
         this.props.dispatch(actions.getQuestion());
         const accessToken = Cookies.get('accessToken');
+
+        if (accessToken === "1234") {
+          this.props.dispatch(actions.reset());
+        }
+
         fetch('/api/questions', {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`

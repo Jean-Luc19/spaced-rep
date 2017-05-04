@@ -155,7 +155,6 @@ router.get('/api/demo', (req, res) => {
     };
     return Question.find()
     .then(questions => {
-        console.log(questions);
         demoUser.questionSet = questions;
         const scores = questions.map(q => {
             let dothWord = q.wordDothraki;
@@ -168,11 +167,12 @@ router.get('/api/demo', (req, res) => {
         demoUser.scores = scores;
         User.create(demoUser)
             .then(user => {
-                console.log(user);
-                res.cookie(user.accessToken = 'accessToken', req.user.accessToken, {expires: 0});
+                res.cookie('accessToken', user.accessToken, {expires: 0});
                 res.redirect('/');
             });
-
+    })
+    .catch((error) => {
+      res.status(500).json(err);
     });
 
 });
